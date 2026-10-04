@@ -1,104 +1,169 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-
-  <meta charset="UTF-8" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Happy Birthday 🎉</title>
 
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-<body>
 
-<audio>id="birthdayMusic" loop
-
-<source src="birthday.mp3"
-
-type="audio/mpeg">
-
-</audio>
-
-<script>
-
-document.addEventListener"click"
-
-document.getElementById("birthdayMusic").play(); }, { once: true });
-
-</script>
   <style>
-
     body {
-
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
     }
 
-  </style>
+    .card {
+      animation: appear 1s ease;
+    }
 
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .emoji {
+      animation: bounce 1.5s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .surprise {
+      animation: pop 0.5s ease;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(0);
+      }
+
+      80% {
+        transform: scale(1.1);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center px-4">
+<body class="min-h-screen flex items-center justify-center px-4 py-8">
 
-  <div class="bg-white shadow-2xl rounded-2xl p-6 sm:p-8 max-w-md w-full text-center">
+  <!-- Birthday Music -->
+  <audio id="birthdayMusic" loop>
+    <source src="birthday.mp3" type="audio/mpeg">
+  </audio>
 
-    <h1 class="text-3xl sm:text-4xl font-extrabold text-pink-500 mb-4">🎂 Happy Birthday! 🎂</h1>
+  <!-- Main Card -->
+  <div class="card bg-white shadow-2xl rounded-2xl p-6 sm:p-8 max-w-md w-full text-center">
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-pink-500 mb-4">
+      🎂 Happy Birthday! 🎂
+    </h1>
 
     <p class="text-base sm:text-lg text-gray-700 mb-6">
-
-      Wishing you a day filled with love, laughter, and everything that makes you smile.
-
-      May this year bring you happiness, success, and unforgettable memories.
-
+      Wishing you a day filled with love, laughter, and everything
+      that makes you smile. May this year bring you happiness,
+      success, and unforgettable memories. 💖
     </p>
 
-    <div class="text-5xl sm:text-6xl mb-6">🎉🎈🎁</div>
+    <div class="emoji text-5xl sm:text-6xl mb-6">
+      🎉🎈🎁
+    </div>
 
     <p class="text-gray-600 italic text-sm sm:text-base">
-
-      "Count your life by smiles, not tears. Count your age by friends, not years."
-
+      "Count your life by smiles, not tears.
+      Count your age by friends, not years."
     </p>
 
-    <button onclick="celebrate()" class="mt-6 px-6 py-3 bg-pink-500 text-white rounded-xl shadow hover:bg-pink-600 transition w-full sm:w-auto">
-
+    <!-- Surprise Button -->
+    <button
+      onclick="celebrate()"
+      class="mt-6 px-6 py-3 bg-pink-500 text-white rounded-xl shadow-lg
+             hover:bg-pink-600 active:scale-95 transition w-full sm:w-auto">
       Click for a Surprise 🎊
-
     </button>
 
-    <p id="surprise" class="mt-4 text-lg sm:text-xl font-semibold text-purple-600 hidden">
-
-      You are amazing! Have the best birthday ever! 💖
-
+    <!-- Surprise Message -->
+    <p id="surprise"
+      class="mt-4 text-lg sm:text-xl font-semibold text-purple-600 hidden surprise">
+      You are amazing! 💖<br>
+      Have the best birthday ever! 🎂🎉
     </p>
 
   </div>
 
   <script>
 
-    function celebrate() {
+    // Start music after the first tap/click
+    document.addEventListener("click", function () {
 
-      document.getElementById('surprise').classList.remove('hidden');
+      const music = document.getElementById("birthdayMusic");
 
-      confetti({
-
-        particleCount: 150,
-
-        spread: 70,
-
-        origin: { y: 0.6 }
-
+      music.play().catch(function () {
+        console.log("Music could not start automatically.");
       });
 
-      setTimeout(() => {
+    }, { once: true });
 
-        confetti({ particleCount: 100, spread: 120, origin: { x: 0.1 } });
 
-        confetti({ particleCount: 100, spread: 120, origin: { x: 0.9 } });
+    // Surprise button
+    function celebrate() {
+
+      // Show message
+      document.getElementById("surprise").classList.remove("hidden");
+
+      // Main confetti
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: {
+          y: 0.6
+        }
+      });
+
+      // Left and right confetti
+      setTimeout(function () {
+
+        confetti({
+          particleCount: 100,
+          spread: 120,
+          origin: {
+            x: 0.1
+          }
+        });
+
+        confetti({
+          particleCount: 100,
+          spread: 120,
+          origin: {
+            x: 0.9
+          }
+        });
 
       }, 300);
 
@@ -107,6 +172,4 @@ document.getElementById("birthdayMusic").play(); }, { once: true });
   </script>
 
 </body>
-
 </html>
-
